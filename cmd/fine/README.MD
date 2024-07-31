@@ -1,12 +1,12 @@
-# fine
+# Fine
 
-`Fine` is a powerful CLI tool for building [Fine](https://gitlab.sys.hxsapp.net/hxs/fine) application with convenience.
+`Fine` is a powerful CLI tool for building [Fine](https://github.com/ZYallers/fine) application with convenience.
 
 ## 1. Install
 
 ## 1) PreCompiled Binary
 
-You can also install `gf` tool using pre-built binaries: <https://github.com/gogf/gf/releases>
+You can also install `fine` tool using pre-built binaries: <https://github.com/ZYallers/fine/releases>
 
 1. Database support
 
@@ -17,7 +17,7 @@ You can also install `gf` tool using pre-built binaries: <https://github.com/gog
 ## 2) Manually Install
 
 ```shell
-go install gitlab.sys.hxsapp.net/hxs/fine/cmd/fine@latest # latest version
+go install github.com/ZYallers/fine/cmd/fine@latest # latest version
 ```
 
 ## 2. Commands
