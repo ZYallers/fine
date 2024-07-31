@@ -1,6 +1,6 @@
 package fine
 
-import "gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
+import "github.com/ZYallers/fine/frame/fapp"
 
 // //////////////////////////////////////////////////////////////////
 //                          _ooOoo_                               //

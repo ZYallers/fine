@@ -1,9 +1,9 @@
 package fhandler
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/internal/handler"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/handler"
 )
 
 func WithRecover() fapp.Option {

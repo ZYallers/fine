@@ -1,8 +1,8 @@
 package f
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/frouter"
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/frame/frouter"
 )
 
 func App() *fapp.App { return fapp.Now() }

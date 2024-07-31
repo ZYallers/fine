@@ -1,4 +1,4 @@
-module gitlab.sys.hxsapp.net/hxs/fine/cmd/fine
+module github.com/ZYallers/fine/cmd/fine
 
 go 1.17
 
@@ -6,7 +6,7 @@ require (
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.16.0
-	gitlab.sys.hxsapp.net/hxs/fine v1.0.8
+	gitlab.sys.hxsapp.net/hxs/fine v1.0.9
 	golang.org/x/tools v0.13.0
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/gorm v1.20.8

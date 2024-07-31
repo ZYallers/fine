@@ -1,10 +1,10 @@
 package fhandler
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/internal/handler"
+	"github.com/ZYallers/fine/internal/route"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/handler"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/route"
 )
 
 func WithStats(root string, acts gin.Accounts) fapp.Option {

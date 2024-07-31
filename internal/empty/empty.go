@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/reflection"
+	"github.com/ZYallers/fine/internal/reflection"
 )
 
 // iString is used for type assert api for String().

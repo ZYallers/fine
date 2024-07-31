@@ -1,6 +1,6 @@
 package ftracing
 
-import "gitlab.sys.hxsapp.net/hxs/fine/os/fgoid"
+import "github.com/ZYallers/fine/os/fgoid"
 
 func Go(f func()) {
 	go func(mainTraceId string) {

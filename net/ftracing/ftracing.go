@@ -1,8 +1,8 @@
 package ftracing
 
 import (
+	"github.com/ZYallers/fine/internal/tracing"
 	"github.com/google/uuid"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/tracing"
 )
 
 const (

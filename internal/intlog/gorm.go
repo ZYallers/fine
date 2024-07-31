@@ -4,21 +4,20 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
 	"os"
 	"regexp"
 	"runtime"
 	"strings"
 	"time"
 
+	"github.com/ZYallers/fine/net/fclient"
+	"github.com/ZYallers/fine/net/fipv4"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/flog"
+	"github.com/ZYallers/fine/text/fstr"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	gormless "gorm.io/gorm/logger"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fclient"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fipv4"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
 )
 
 const (

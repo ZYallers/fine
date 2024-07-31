@@ -2,13 +2,14 @@ package genctrl
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/consts"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/util/utils"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/f"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
 	"log"
 	"path/filepath"
+
+	"github.com/ZYallers/fine/cmd/fine/internal/consts"
+	"github.com/ZYallers/fine/cmd/fine/internal/util/utils"
+	"github.com/ZYallers/fine/frame/f"
+	"github.com/ZYallers/fine/os/ffile"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 type controllerGenerator struct{}

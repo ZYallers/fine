@@ -5,11 +5,11 @@ import (
 	"log"
 	"strings"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/consts"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/util/utils"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fregex"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/cmd/fine/internal/consts"
+	"github.com/ZYallers/fine/cmd/fine/internal/util/utils"
+	"github.com/ZYallers/fine/os/ffile"
+	"github.com/ZYallers/fine/text/fregex"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 func (g *genService) generateServiceFile(srcImportedPackages []string, srcStructFunctions map[string][]string,

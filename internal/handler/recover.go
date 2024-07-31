@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -9,12 +8,12 @@ import (
 	"runtime/debug"
 	"strings"
 
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/os/fctx"
+	"github.com/ZYallers/fine/os/flog"
+	"github.com/ZYallers/fine/util/fcast"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
-	"gitlab.sys.hxsapp.net/hxs/fine/util/fcast"
 )
 
 // RecoverWithZap returns a gin.HandlerFunc (middleware)

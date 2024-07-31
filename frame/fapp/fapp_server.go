@@ -10,8 +10,8 @@ import (
 	"syscall"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/os/flog"
 )
 
 func record(msg string, args ...string) {

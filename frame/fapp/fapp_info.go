@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/fcfg"
 )
 
 const title = `◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/util/futil"
+	"github.com/ZYallers/fine/util/futil"
 )
 
 type Response struct {

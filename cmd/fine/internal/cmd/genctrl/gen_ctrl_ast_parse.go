@@ -7,8 +7,8 @@ import (
 	"go/printer"
 	"go/token"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/os/ffile"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 // getStructsNameInSrc retrieves all struct names that end in "Req" and have "fine.Meta" in their body.

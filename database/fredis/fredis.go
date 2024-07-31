@@ -3,12 +3,12 @@ package fredis
 import (
 	"fmt"
 
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/internal/consts"
+	"github.com/ZYallers/fine/internal/instance"
+	"github.com/ZYallers/fine/internal/intlog"
+	"github.com/ZYallers/fine/os/flog"
 	"github.com/go-redis/redis"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/consts"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/instance"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/intlog"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
 )
 
 func init() {

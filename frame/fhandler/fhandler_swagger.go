@@ -1,13 +1,12 @@
 package fhandler
 
 import (
+	"github.com/ZYallers/fine/debug/fdebug"
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/internal/handler"
+	"github.com/ZYallers/fine/internal/route"
+	"github.com/ZYallers/fine/util/fmode"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/debug/fdebug"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/util/fmode"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/handler"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/route"
 )
 
 func WithSwagger(path ...string) fapp.Option {

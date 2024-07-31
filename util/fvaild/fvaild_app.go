@@ -1,8 +1,8 @@
 package fvaild
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
 	"github.com/gin-gonic/gin/binding"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
 )
 
 func WithBinding(v binding.StructValidator) fapp.Option {

@@ -1,8 +1,8 @@
 package fmsg
 
 import (
+	"github.com/ZYallers/fine/internal/message"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/message"
 )
 
 type ISender interface {

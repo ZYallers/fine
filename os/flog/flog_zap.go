@@ -2,19 +2,18 @@ package flog
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/ftracing"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fgoid"
 	"os"
 	"path/filepath"
 
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/internal/consts"
+	"github.com/ZYallers/fine/internal/instance"
+	"github.com/ZYallers/fine/net/ftracing"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/fgoid"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/consts"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/instance"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
 )
 
 var (

@@ -2,11 +2,11 @@ package fcfg
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
 	"os"
 	"strings"
 	"time"
 
+	"github.com/ZYallers/fine/os/ffile"
 	"github.com/spf13/viper"
 )
 

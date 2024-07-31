@@ -1,4 +1,4 @@
-module gitlab.sys.hxsapp.net/hxs/fine
+module github.com/ZYallers/fine
 
 go 1.17
 

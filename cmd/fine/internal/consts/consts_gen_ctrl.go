@@ -69,7 +69,7 @@ const TemplateGenCtrlSdkPkgNew = `
 
 package {PkgName}
 
-import "gitlab.sys.hxsapp.net/hxs/fine/contrib/sdk/httpclient"
+import "github.com/ZYallers/fine/contrib/sdk/httpclient"
 
 type implementer struct {
 	config httpclient.Config
@@ -105,7 +105,7 @@ package {PkgName}
 
 import (
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/contrib/sdk/httpclient"
+	"github.com/ZYallers/fine/contrib/sdk/httpclient"
 
 {ImportPaths}
 )

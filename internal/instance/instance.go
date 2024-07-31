@@ -4,8 +4,8 @@
 package instance
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/container/fmap"
-	"gitlab.sys.hxsapp.net/hxs/fine/encoding/fhash"
+	"github.com/ZYallers/fine/container/fmap"
+	"github.com/ZYallers/fine/encoding/fhash"
 )
 
 const (

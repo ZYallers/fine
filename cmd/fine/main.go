@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/ZYallers/fine/cmd/fine/internal/cmd/genctrl"
+	"github.com/ZYallers/fine/cmd/fine/internal/cmd/gendao"
+	"github.com/ZYallers/fine/cmd/fine/internal/cmd/genservice"
 	"github.com/spf13/cobra"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/cmd/genctrl"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/cmd/gendao"
-	"gitlab.sys.hxsapp.net/hxs/fine/cmd/fine/internal/cmd/genservice"
 )
 
 const cliVersion = "1.0.9"

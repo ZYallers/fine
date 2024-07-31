@@ -1,9 +1,9 @@
 package fhandler
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/frouter"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/handler"
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/frame/frouter"
+	"github.com/ZYallers/fine/internal/handler"
 )
 
 func WithRouter(router frouter.Router) fapp.Option {

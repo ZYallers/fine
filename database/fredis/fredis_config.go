@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/ZYallers/fine/os/fcfg"
 	"github.com/go-redis/redis"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
 )
 
 type redisConfig struct {

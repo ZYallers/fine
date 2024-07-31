@@ -3,7 +3,7 @@ package genctrl
 import (
 	"fmt"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
+	"github.com/ZYallers/fine/os/ffile"
 )
 
 type genCtrl struct {

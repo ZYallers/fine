@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 const (

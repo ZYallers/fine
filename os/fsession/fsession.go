@@ -1,9 +1,9 @@
 package fsession
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/os/fctx"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 )
 
 func Data(ctx *gin.Context, app *fapp.App) string {

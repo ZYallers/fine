@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/fcfg"
 )
 
 const (

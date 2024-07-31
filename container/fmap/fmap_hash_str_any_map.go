@@ -3,8 +3,8 @@ package fmap
 import (
 	"reflect"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/empty"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/rwmutex"
+	"github.com/ZYallers/fine/internal/empty"
+	"github.com/ZYallers/fine/internal/rwmutex"
 )
 
 // StrAnyMap implements map[string]interface{} with RWMutex that has switch.

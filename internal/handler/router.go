@@ -2,20 +2,19 @@ package handler
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 	"net/http"
 	"reflect"
 	"strings"
 
+	"github.com/ZYallers/fine/errors/ferror"
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/frame/frouter"
+	"github.com/ZYallers/fine/internal/route"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/fctx"
+	"github.com/ZYallers/fine/text/fstr"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/errors/ferror"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/frouter"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/route"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
 )
 
 func ParseRouter(app *fapp.App) {

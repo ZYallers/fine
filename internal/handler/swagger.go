@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/ZYallers/fine/frame/f"
+	"github.com/ZYallers/fine/os/ffile"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/f"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
 )
 
 func Swagger(docDir string) gin.HandlerFunc {

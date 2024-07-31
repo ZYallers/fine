@@ -1,15 +1,14 @@
 package handler
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/net/ftracing"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/fctx"
+	"github.com/ZYallers/fine/os/fgoid"
+	"github.com/ZYallers/fine/os/flog"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/ftracing"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 	"go.uber.org/zap"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fgoid"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
 )
 
 func Tracing(app *fapp.App) {

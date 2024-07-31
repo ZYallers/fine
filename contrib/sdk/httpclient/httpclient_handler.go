@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"reflect"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/encoding/fjson"
-	"gitlab.sys.hxsapp.net/hxs/fine/errors/ferror"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/f"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fclient"
+	"github.com/ZYallers/fine/encoding/fjson"
+	"github.com/ZYallers/fine/errors/ferror"
+	"github.com/ZYallers/fine/frame/f"
+	"github.com/ZYallers/fine/net/fclient"
 	"go.uber.org/zap"
 )
 

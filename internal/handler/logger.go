@@ -2,15 +2,14 @@ package handler
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 	"time"
 
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/internal/util/fsafe"
+	"github.com/ZYallers/fine/os/fctx"
+	"github.com/ZYallers/fine/os/flog"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/util/fsafe"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
 )
 
 // LoggerWithZap returns a gin.HandlerFunc (middleware) that logs requests using uber-go/zap.

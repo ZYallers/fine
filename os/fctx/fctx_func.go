@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ZYallers/fine/encoding/fjson"
+	"github.com/ZYallers/fine/frame/f"
+	"github.com/ZYallers/fine/util/fcast"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/encoding/fjson"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/f"
-	"gitlab.sys.hxsapp.net/hxs/fine/util/fcast"
 )
 
 func QueryPostForm(ctx *gin.Context, keys ...string) string {

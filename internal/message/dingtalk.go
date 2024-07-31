@@ -9,9 +9,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fclient"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fipv4"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
+	"github.com/ZYallers/fine/net/fclient"
+	"github.com/ZYallers/fine/net/fipv4"
+	"github.com/ZYallers/fine/os/fcfg"
 )
 
 type DingTalk struct {

@@ -1,7 +1,7 @@
 package genctrl
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 type apiItem struct {

@@ -9,10 +9,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/os/fctx"
 	"github.com/gin-gonic/gin"
-
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fctx"
 )
 
 func signCheck(app *fapp.App) gin.HandlerFunc {

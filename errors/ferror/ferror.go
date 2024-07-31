@@ -1,7 +1,7 @@
 package ferror
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/util/fcast"
+	"github.com/ZYallers/fine/util/fcast"
 	"net/http"
 )
 

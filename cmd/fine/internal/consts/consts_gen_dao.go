@@ -38,7 +38,7 @@ const TemplateGenDaoInternalContent = `
 package internal
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/database/fmysql"
+	"github.com/ZYallers/fine/database/fmysql"
 	"gorm.io/gorm"
 )
 

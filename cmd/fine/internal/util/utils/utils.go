@@ -7,9 +7,9 @@ import (
 	"regexp"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fregex"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/os/ffile"
+	"github.com/ZYallers/fine/text/fregex"
+	"github.com/ZYallers/fine/text/fstr"
 	"golang.org/x/tools/imports"
 )
 

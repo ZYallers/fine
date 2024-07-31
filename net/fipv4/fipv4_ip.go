@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ZYallers/fine/encoding/fjson"
 	"github.com/axgle/mahonia"
-	"gitlab.sys.hxsapp.net/hxs/fine/encoding/fjson"
 )
 
 type ipAddr struct {

@@ -2,15 +2,15 @@ package httpclient
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"reflect"
 	"strings"
 	"time"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/errors/ferror"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fclient"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/errors/ferror"
+	"github.com/ZYallers/fine/net/fclient"
+	"github.com/ZYallers/fine/text/fstr"
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 

@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ZYallers/fine/frame/frouter"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/os/ffile"
 	"github.com/gin-gonic/gin"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/frouter"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
 )
 
 func Now() *App {

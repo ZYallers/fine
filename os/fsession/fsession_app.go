@@ -1,9 +1,9 @@
 package fsession
 
 import (
+	"github.com/ZYallers/fine/frame/fapp"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
 )
 
 func WithClient(client func() *redis.Client) fapp.Option {

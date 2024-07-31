@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ZYallers/fine/os/ffile"
+	"github.com/ZYallers/fine/text/fstr"
 	"github.com/spf13/viper"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/ffile"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
 )
 
 const (

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fregex"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
-	"gitlab.sys.hxsapp.net/hxs/fine/util/fcast"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/ZYallers/fine/text/fregex"
+	"github.com/ZYallers/fine/text/fstr"
+	"github.com/ZYallers/fine/util/fcast"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

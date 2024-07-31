@@ -3,10 +3,10 @@ package route
 import (
 	"bytes"
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
 	"strconv"
 	"strings"
 
+	"github.com/ZYallers/fine/os/fcfg"
 	"github.com/olekukonko/tablewriter"
 )
 

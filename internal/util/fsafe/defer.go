@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fmsg"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/flog"
+	"github.com/ZYallers/fine/frame/fmsg"
+	"github.com/ZYallers/fine/os/flog"
 	"go.uber.org/zap"
 )
 

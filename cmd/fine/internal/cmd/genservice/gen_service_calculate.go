@@ -5,8 +5,8 @@ import (
 	"go/parser"
 	"go/token"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fregex"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+	"github.com/ZYallers/fine/text/fregex"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 func (g *genService) calculateCodeCommented(fileContent string, srcCodeCommentedMap map[string]string) error {

@@ -1,13 +1,13 @@
 package fapp
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
 	"net/http"
 
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/frouter"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/route"
-	"gitlab.sys.hxsapp.net/hxs/fine/os/fcfg"
+	"github.com/ZYallers/fine/frame/frouter"
+	"github.com/ZYallers/fine/internal/route"
+	"github.com/ZYallers/fine/os/fcfg"
+	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
 )
 
 type AppSession struct {

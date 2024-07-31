@@ -3,8 +3,9 @@ package httpclient
 
 import (
 	"fmt"
-	"gitlab.sys.hxsapp.net/hxs/fine/net/fclient"
-	"gitlab.sys.hxsapp.net/hxs/fine/text/fstr"
+
+	"github.com/ZYallers/fine/net/fclient"
+	"github.com/ZYallers/fine/text/fstr"
 )
 
 const (

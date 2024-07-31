@@ -1,8 +1,8 @@
 package fhandler
 
 import (
-	"gitlab.sys.hxsapp.net/hxs/fine/frame/fapp"
-	"gitlab.sys.hxsapp.net/hxs/fine/internal/handler"
+	"github.com/ZYallers/fine/frame/fapp"
+	"github.com/ZYallers/fine/internal/handler"
 )
 
 func WithTracing() fapp.Option {
