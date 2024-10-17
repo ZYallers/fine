@@ -157,7 +157,7 @@ func (g *genService) isToGenerateServiceGoFile(dstPackageName, filePath string, 
 	if err != nil {
 		return false
 	}
-	matches, _ := fregex.MatchAllString(`\s+interface\s+{([\s\S]+?)}`, fileContent)
+	matches, _ := fregex.MatchAllString(`\s+interface\s+{((?:[^{}]*|\{[^{}]*\})*)\}`, fileContent)
 	for _, match := range matches {
 		contentFuncArray = append(contentFuncArray, fstr.SplitAndTrim(match[1], "\n")...)
 	}
@@ -166,8 +166,9 @@ func (g *genService) isToGenerateServiceGoFile(dstPackageName, filePath string, 
 		return true
 	}
 	var funcDefinition string
+	pattern := fmt.Sprintf(`\*{0,1}%s\.`, dstPackageName)
 	for i := 0; i < len(generatedFuncArray); i++ {
-		funcDefinition, _ = fregex.ReplaceString(fmt.Sprintf(`\*{0,1}%s\.`, dstPackageName), ``, generatedFuncArray[i])
+		funcDefinition, _ = fregex.ReplaceString(pattern, ``, generatedFuncArray[i])
 		if funcDefinition != contentFuncArray[i] {
 			log.Printf("dirty, %s != %s\n", funcDefinition, contentFuncArray[i])
 			return true
