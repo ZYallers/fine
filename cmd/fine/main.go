@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const cliVersion = "1.0.9"
+const cliVersion = "1.0.10"
 
 var rootCmd = &cobra.Command{}
 
