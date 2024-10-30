@@ -35,9 +35,10 @@ import (
 
 //	@Summary	{Module}/{Version}/{MethodNameSnake}
 //	@Tags		{Module}
-//	@Accept		x-www-form-urlencoded
+//	@Accept		json
+//	@Produce	json
 //	@Router		/{Module}/{Version}/{MethodNameSnake} [post]
-//	@Param		{MethodNameSnake}		body	{Version}.{MethodName}Req	true	"form params"
+//	@Param		params	body		{Version}.{MethodName}Req	true	"..."
 //	@Success	200		{object}	f.JsonResult{data={Version}.{MethodName}Res}
 func (c *{CtrlName}) {MethodName}(ctx *gin.Context, req *{Version}.{MethodName}Req) (res *{Version}.{MethodName}Res, err error) {
 	return
