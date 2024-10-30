@@ -6,6 +6,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/ZYallers/fine/text/fstr"
 	"github.com/go-playground/locales/zh"
 	translator "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -78,10 +79,10 @@ func (v *v10) processError(obj interface{}, err error) string {
 				itemField := item.Field()
 				if field, ok := typeOf.FieldByName(itemField); ok {
 					if val := field.Tag.Get("form"); val != "" {
-						trans = strings.Replace(trans, itemField, "["+val+"]", 1)
+						return strings.Replace(trans, itemField, "["+val+"]", 1)
 					}
 				}
-				return trans
+				return strings.Replace(trans, itemField, "["+fstr.CaseSnake(itemField)+"]", 1)
 			} else {
 				return item.Error()
 			}

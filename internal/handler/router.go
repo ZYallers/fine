@@ -14,7 +14,6 @@ import (
 	"github.com/ZYallers/fine/os/fctx"
 	"github.com/ZYallers/fine/text/fstr"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 )
 
 func ParseRouter(app *fapp.App) {
@@ -27,28 +26,28 @@ func ParseRouter(app *fapp.App) {
 		if r.Method == "" {
 			continue
 		}
-		handlersChain := gin.HandlersChain{}
+		chain := gin.HandlersChain{}
 		if r.Sign {
 			if app.Sign.SignHandler != nil {
-				handlersChain = append(handlersChain, app.Sign.SignHandler)
+				chain = append(chain, app.Sign.SignHandler)
 			} else {
-				handlersChain = append(handlersChain, signCheck(app))
+				chain = append(chain, signCheck(app))
 			}
 		}
 		if r.Login {
 			if app.Session.LoginHandler != nil {
-				handlersChain = append(handlersChain, app.Session.LoginHandler)
+				chain = append(chain, app.Session.LoginHandler)
 			} else {
-				handlersChain = append(handlersChain, loginCheck(app))
+				chain = append(chain, loginCheck(app))
 			}
 		}
-		handlersChain = append(handlersChain, callRouteHandler(r))
+		chain = append(chain, callRouteHandler(r))
 		for _, method := range strings.Split(r.Method, ",") {
 			switch fstr.ToUpper(method) {
 			case http.MethodGet:
-				engine.GET(path, handlersChain...)
+				engine.GET(path, chain...)
 			case http.MethodPost:
-				engine.POST(path, handlersChain...)
+				engine.POST(path, chain...)
 			}
 		}
 		if dumpOf {
@@ -65,28 +64,20 @@ func getRouteHandlerFullName(route *frouter.Route) string {
 func callRouteHandler(route *frouter.Route) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		handlerReq := reflect.New(route.HandlerReq())
-		switch ctx.Request.Method {
-		case http.MethodPost:
-			if err := ctx.ShouldBindWith(handlerReq.Interface(), binding.FormPost); err != nil {
-				fctx.AbortJson(ctx, http.StatusInternalServerError, err)
-				return
-			}
-		case http.MethodGet:
-			if err := ctx.ShouldBindWith(handlerReq.Interface(), binding.Query); err != nil {
-				fctx.AbortJson(ctx, http.StatusInternalServerError, err)
-				return
-			}
+		if err := ctx.ShouldBind(handlerReq.Interface()); err != nil {
+			fctx.AbortJson(ctx, http.StatusInternalServerError, err)
+			return
 		}
 		results := route.Handler().Call([]reflect.Value{reflect.ValueOf(ctx), handlerReq})
 		handleRouteResponse(ctx, results)
 	}
 }
 
-func handleRouteResponse(ctx *gin.Context, values []reflect.Value) {
-	if len(values) != 2 {
+func handleRouteResponse(ctx *gin.Context, resp []reflect.Value) {
+	if len(resp) != 2 {
 		return
 	}
-	result, err := values[0], values[1]
+	res, err := resp[0], resp[1]
 	if !err.IsNil() {
 		switch e := err.Interface().(type) {
 		case *ferror.Error:
@@ -96,5 +87,5 @@ func handleRouteResponse(ctx *gin.Context, values []reflect.Value) {
 		}
 		return
 	}
-	fctx.AbortJson(ctx, http.StatusOK, "OK", result.Interface())
+	fctx.AbortJson(ctx, http.StatusOK, "OK", res.Interface())
 }

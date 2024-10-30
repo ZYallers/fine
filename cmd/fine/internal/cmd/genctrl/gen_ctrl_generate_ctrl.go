@@ -80,12 +80,10 @@ func (c *controllerGenerator) doGenerateCtrlNewByModuleAndVersion(dstModuleFolde
 
 func (c *controllerGenerator) doGenerateCtrlItem(dstModuleFolderPath string, item apiItem) (err error) {
 	var (
+		content         string
 		methodNameSnake = fstr.CaseConvert(item.MethodName, fstr.SnakeFirstUpper)
-		methodFilePath  = filepath.FromSlash(ffile.Join(dstModuleFolderPath, item.Version,
-			fmt.Sprintf(`%s_%s.go`, item.Version, methodNameSnake)))
+		methodFilePath  = filepath.FromSlash(ffile.Join(dstModuleFolderPath, item.Version, fmt.Sprintf(`%s_%s.go`, item.Version, methodNameSnake)))
 	)
-	var content string
-
 	if !ffile.Exists(methodFilePath) {
 		content = fstr.ReplaceByMap(consts.TemplateGenCtrlControllerMethodFunc, f.MapStrStr{
 			"{Module}":          item.Module,
