@@ -217,3 +217,54 @@ func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error)
 	}
 	return file, nil
 }
+
+// Remove deletes all file/directory with `path` parameter.
+// If parameter `path` is directory, it deletes it recursively.
+//
+// It does nothing if given `path` does not exist or is empty.
+//
+// Deprecated:
+// As the name Remove for files deleting is ambiguous,
+// please use RemoveFile or RemoveAll for explicit usage instead.
+func Remove(path string) (err error) {
+	// It does nothing if `path` is empty.
+	if path == "" {
+		return nil
+	}
+	if err = os.RemoveAll(path); err != nil {
+		err = fmt.Errorf(`os.RemoveAll failed for path "%s": %v`, path, err)
+	}
+	return
+}
+
+// RemoveFile removes the named file or (empty) directory.
+func RemoveFile(path string) (err error) {
+	if err = os.Remove(path); err != nil {
+		err = fmt.Errorf(`os.Remove failed for path "%s": %v`, path, err)
+	}
+	return
+}
+
+// RemoveAll removes path and any children it contains.
+// It removes everything it can but returns the first error
+// it encounters. If the path does not exist, RemoveAll
+// returns nil (no error).
+func RemoveAll(path string) (err error) {
+	if err = os.RemoveAll(path); err != nil {
+		err = fmt.Errorf(`os.RemoveAll failed for path "%s": %v`, path, err)
+	}
+	return
+}
+
+// IsReadable checks whether given `path` is readable.
+func IsReadable(path string) bool {
+	result := true
+	file, err := os.OpenFile(path, os.O_RDONLY, DefaultPermOpen)
+	if err != nil {
+		result = false
+	}
+	if file != nil {
+		_ = file.Close()
+	}
+	return result
+}
