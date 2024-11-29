@@ -3,6 +3,7 @@ package genservice
 import (
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 
 	"github.com/ZYallers/fine/cmd/fine/internal/consts"
@@ -36,8 +37,14 @@ func (g *genService) generateServiceFile(srcImportedPackages []string, srcStruct
 		allFuncArray = append(allFuncArray, funcArray...)
 		// Add comments to a method.
 		for index, funcName := range funcArray {
-			if commentedInfo, exist := srcCodeCommentedMap[fmt.Sprintf("%s-%s", structName, funcName)]; exist {
-				funcName += " " + fstr.Trim(commentedInfo)
+			sfn := fmt.Sprintf("%s-%s", structName, funcName)
+			if commentedInfo, exist := srcCodeCommentedMap[sfn]; exist {
+				if str := fstr.Trim(commentedInfo); str != "" {
+					funcName = str + "\n" + funcName
+					// if commentedArray := fstr.Split(str, "\n"); len(commentedArray) > 0 {
+					// 	funcName += " " + fstr.Trim(commentedArray[0])
+					// }
+				}
 				funcArray[index] = funcName
 			}
 		}
@@ -102,7 +109,7 @@ func (g *genService) generateServiceFile(srcImportedPackages []string, srcStruct
 			return false, nil
 		}
 		if !g.isToGenerateServiceGoFile(dstPackageName, dstFilePath, allFuncArray) {
-			log.Printf("not dirty, ignore generating file: %s\n", dstFilePath)
+			log.Printf("not dirty, ignore generate: %s\n", ffile.RealPath(dstFilePath))
 			return false, nil
 		}
 	}
@@ -144,7 +151,6 @@ func (g *genService) generateInitializationFile(importSrcPackages []string) (err
 // isToGenerateServiceGoFile checks and returns whether the service content dirty.
 func (g *genService) isToGenerateServiceGoFile(dstPackageName, filePath string, funcArray []string) bool {
 	var (
-		err                error
 		fileContent        = ffile.GetContents(filePath)
 		generatedFuncArray = funcArray
 		contentFuncArray   = make([]string, 0)
@@ -153,24 +159,26 @@ func (g *genService) isToGenerateServiceGoFile(dstPackageName, filePath string, 
 		return true
 	}
 	// remove all comments.
-	fileContent, err = fregex.ReplaceString(`(//.*)|((?s)/\*.*?\*/)`, "", fileContent)
-	if err != nil {
-		return false
+	fileContent, _ = fregex.ReplaceString(`(//.*)|((?s)/\*.*?\*/)`, "", fileContent)
+	if fileContent == "" {
+		return true
 	}
 	matches, _ := fregex.MatchAllString(`\s+interface\s+{((?:[^{}]*|\{[^{}]*\})*)\}`, fileContent)
 	for _, match := range matches {
 		contentFuncArray = append(contentFuncArray, fstr.SplitAndTrim(match[1], "\n")...)
 	}
 	if len(generatedFuncArray) != len(contentFuncArray) {
-		log.Printf("dirty, generatedFuncArray length[%d] != contentFuncArray length[%d]\n", len(generatedFuncArray), len(contentFuncArray))
+		log.Printf("dirty, generated length(%d) != content length(%d): %s\n",
+			len(generatedFuncArray), len(contentFuncArray), ffile.RealPath(filePath))
 		return true
 	}
-	var funcDefinition string
+	sort.Strings(generatedFuncArray)
+	sort.Strings(contentFuncArray)
 	pattern := fmt.Sprintf(`\*{0,1}%s\.`, dstPackageName)
 	for i := 0; i < len(generatedFuncArray); i++ {
-		funcDefinition, _ = fregex.ReplaceString(pattern, ``, generatedFuncArray[i])
+		funcDefinition, _ := fregex.ReplaceString(pattern, ``, generatedFuncArray[i])
 		if funcDefinition != contentFuncArray[i] {
-			log.Printf("dirty, %s != %s\n", funcDefinition, contentFuncArray[i])
+			log.Printf("dirty, %s != %s: %s\n", funcDefinition, contentFuncArray[i], ffile.RealPath(filePath))
 			return true
 		}
 	}
