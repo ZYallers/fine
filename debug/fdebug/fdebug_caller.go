@@ -1,10 +1,164 @@
 package fdebug
 
 import (
+	"fmt"
+	"path/filepath"
 	"reflect"
 	"runtime"
 	"strings"
 )
+
+const (
+	maxCallerDepth = 1000
+	stackFilterKey = "/debug/fdebug/fdebug"
+)
+
+var (
+	goRootForFilter = runtime.GOROOT() // goRootForFilter is used for stack filtering purpose.
+)
+
+// Caller returns the function name and the absolute file path along with its line
+// number of the caller.
+func Caller(skip ...int) (function string, path string, line int) {
+	return CallerWithFilter(nil, skip...)
+}
+
+// CallerWithFilter returns the function name and the absolute file path along with
+// its line number of the caller.
+//
+// The parameter `filters` is used to filter the path of the caller.
+func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
+	var (
+		number = 0
+		ok     = true
+	)
+	if len(skip) > 0 {
+		number = skip[0]
+	}
+	pc, file, line, start := callerFromIndex(filters)
+	if start != -1 {
+		for i := start + number; i < maxCallerDepth; i++ {
+			if i != start {
+				pc, file, line, ok = runtime.Caller(i)
+			}
+			if ok {
+				if filterFileByFilters(file, filters) {
+					continue
+				}
+				function = ""
+				if fn := runtime.FuncForPC(pc); fn == nil {
+					function = "unknown"
+				} else {
+					function = fn.Name()
+				}
+				return function, file, line
+			} else {
+				break
+			}
+		}
+	}
+	return "", "", -1
+}
+
+// callerFromIndex returns the caller position and according information exclusive of the
+// debug package.
+//
+// VERY NOTE THAT, the returned index value should be `index - 1` as the caller's start point.
+func callerFromIndex(filters []string) (pc uintptr, file string, line int, index int) {
+	var ok bool
+	for index = 0; index < maxCallerDepth; index++ {
+		if pc, file, line, ok = runtime.Caller(index); ok {
+			if filterFileByFilters(file, filters) {
+				continue
+			}
+			if index > 0 {
+				index--
+			}
+			return
+		}
+	}
+	return 0, "", -1, -1
+}
+
+func filterFileByFilters(file string, filters []string) (filtered bool) {
+	// Filter empty file.
+	if file == "" {
+		return true
+	}
+	// Filter fdebug package callings.
+	if strings.Contains(file, stackFilterKey) {
+		return true
+	}
+	for _, filter := range filters {
+		if filter != "" && strings.Contains(file, filter) {
+			return true
+		}
+	}
+	// GOROOT filter.
+	if goRootForFilter != "" && len(file) >= len(goRootForFilter) && file[0:len(goRootForFilter)] == goRootForFilter {
+		fileSeparator := file[len(goRootForFilter)]
+		if fileSeparator == filepath.Separator || fileSeparator == '\\' || fileSeparator == '/' {
+			return true
+		}
+	}
+	return false
+}
+
+// CallerPackage returns the package name of the caller.
+func CallerPackage() string {
+	function, _, _ := Caller()
+	// it defines a new internal function to retrieve the package name from caller function name,
+	// which is for unit testing purpose for core logic of this function.
+	return getPackageFromCallerFunction(function)
+}
+
+func getPackageFromCallerFunction(function string) string {
+	indexSplit := strings.LastIndexByte(function, '/')
+	if indexSplit == -1 {
+		return function[:strings.IndexByte(function, '.')]
+	}
+	var (
+		leftPart  = function[:indexSplit+1]
+		rightPart = function[indexSplit+1:]
+		indexDot  = strings.IndexByte(rightPart, '.')
+	)
+	if indexDot >= 0 {
+		rightPart = rightPart[:indexDot]
+	}
+	return leftPart + rightPart
+}
+
+// CallerFunction returns the function name of the caller.
+func CallerFunction() string {
+	function, _, _ := Caller()
+	function = function[strings.LastIndexByte(function, '/')+1:]
+	function = function[strings.IndexByte(function, '.')+1:]
+	return function
+}
+
+// CallerFilePath returns the file path of the caller.
+func CallerFilePath() string {
+	_, path, _ := Caller()
+	return path
+}
+
+// CallerDirectory returns the directory of the caller.
+func CallerDirectory() string {
+	_, path, _ := Caller()
+	return filepath.Dir(path)
+}
+
+// CallerFileLine returns the file path along with the line number of the caller.
+func CallerFileLine() string {
+	_, path, line := Caller()
+	return fmt.Sprintf(`%s:%d`, path, line)
+}
+
+// CallerFileLineShort returns the file name along with the line number of the caller.
+func CallerFileLineShort() string {
+	_, path, line := Caller()
+	return fmt.Sprintf(`%s:%d`, filepath.Base(path), line)
+}
 
 // FuncPath returns the complete function path of given `f`.
 func FuncPath(f interface{}) string {

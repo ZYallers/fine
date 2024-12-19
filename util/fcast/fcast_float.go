@@ -1,7 +1,6 @@
 package fcast
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 )
@@ -18,8 +17,10 @@ func ToFloat32(i interface{}) float32 {
 	return v
 }
 
-// ToFloat64E converts an interface to a float64 type.
+// ToFloat64E casts an interface to a float64 type.
 func ToFloat64E(i interface{}) (float64, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return float64(intv), nil
@@ -54,12 +55,14 @@ func ToFloat64E(i interface{}) (float64, error) {
 			return v, nil
 		}
 		return 0, fmt.Errorf("unable to cast %#v of type %T to float64", i, i)
-	case json.Number:
+	case float64EProvider:
 		v, err := s.Float64()
 		if err == nil {
 			return v, nil
 		}
 		return 0, fmt.Errorf("unable to cast %#v of type %T to float64", i, i)
+	case float64Provider:
+		return s.Float64(), nil
 	case bool:
 		if s {
 			return 1, nil
@@ -72,8 +75,10 @@ func ToFloat64E(i interface{}) (float64, error) {
 	}
 }
 
-// ToFloat32E converts an interface to a float32 type.
+// ToFloat32E casts an interface to a float32 type.
 func ToFloat32E(i interface{}) (float32, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return float32(intv), nil
@@ -108,12 +113,14 @@ func ToFloat32E(i interface{}) (float32, error) {
 			return float32(v), nil
 		}
 		return 0, fmt.Errorf("unable to cast %#v of type %T to float32", i, i)
-	case json.Number:
+	case float64EProvider:
 		v, err := s.Float64()
 		if err == nil {
 			return float32(v), nil
 		}
 		return 0, fmt.Errorf("unable to cast %#v of type %T to float32", i, i)
+	case float64Provider:
+		return float32(s.Float64()), nil
 	case bool:
 		if s {
 			return 1, nil

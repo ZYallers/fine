@@ -17,6 +17,7 @@ require (
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/petermattis/goid v0.0.0-20231207134359-e60b3f734c67
+	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.11.1
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.21.0

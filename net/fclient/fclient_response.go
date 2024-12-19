@@ -103,7 +103,7 @@ func (r *Response) ReceivedAt() time.Time {
 func (r *Response) readBody() {
 	if r.Raw != nil && r.Raw.Body != nil {
 		defer r.Raw.Body.Close()
-		if bts, err := futil.Copy(r.Raw.Body); err == nil {
+		if bts, err := futil.CopyBytes(r.Raw.Body); err == nil {
 			r.Body = string(bts)
 		}
 	}

@@ -2,36 +2,25 @@ package fstr
 
 import (
 	"strings"
-)
 
-var (
-	// DefaultTrimChars are the characters which are stripped by Trim* functions in default.
-	DefaultTrimChars = string([]byte{
-		'\t', // Tab.
-		'\v', // Vertical tab.
-		'\n', // New line (line feed).
-		'\r', // Carriage return.
-		'\f', // New page.
-		' ',  // Ordinary space.
-		0x00, // NUL-byte.
-		0x85, // Delete.
-		0xA0, // Non-breaking space.
-	})
+	"github.com/ZYallers/fine/util/futil"
 )
 
 // Trim strips whitespace (or other characters) from the beginning and end of a string.
 // The optional parameter `characterMask` specifies the additional stripped characters.
 func Trim(str string, characterMask ...string) string {
-	trimChars := DefaultTrimChars
-	if len(characterMask) > 0 {
-		trimChars += characterMask[0]
-	}
-	return strings.Trim(str, trimChars)
+	return futil.Trim(str, characterMask...)
+}
+
+// TrimStr strips all the given `cut` string from the beginning and end of a string.
+// Note that it does not strip the whitespaces of its beginning or end.
+func TrimStr(str string, cut string, count ...int) string {
+	return TrimLeftStr(TrimRightStr(str, cut, count...), cut, count...)
 }
 
 // TrimLeft strips whitespace (or other characters) from the beginning of a string.
 func TrimLeft(str string, characterMask ...string) string {
-	trimChars := DefaultTrimChars
+	trimChars := futil.DefaultTrimChars
 	if len(characterMask) > 0 {
 		trimChars += characterMask[0]
 	}
@@ -57,7 +46,7 @@ func TrimLeftStr(str string, cut string, count ...int) string {
 
 // TrimRight strips whitespace (or other characters) from the end of a string.
 func TrimRight(str string, characterMask ...string) string {
-	trimChars := DefaultTrimChars
+	trimChars := futil.DefaultTrimChars
 	if len(characterMask) > 0 {
 		trimChars += characterMask[0]
 	}
@@ -81,4 +70,39 @@ func TrimRightStr(str string, cut string, count ...int) string {
 		}
 	}
 	return str
+}
+
+// TrimAll trims all characters in string `str`.
+func TrimAll(str string, characterMask ...string) string {
+	trimChars := futil.DefaultTrimChars
+	if len(characterMask) > 0 {
+		trimChars += characterMask[0]
+	}
+	var (
+		filtered bool
+		slice    = make([]rune, 0, len(str))
+	)
+	for _, char := range str {
+		filtered = false
+		for _, trimChar := range trimChars {
+			if char == trimChar {
+				filtered = true
+				break
+			}
+		}
+		if !filtered {
+			slice = append(slice, char)
+		}
+	}
+	return string(slice)
+}
+
+// HasPrefix tests whether the string s begins with prefix.
+func HasPrefix(s, prefix string) bool {
+	return strings.HasPrefix(s, prefix)
+}
+
+// HasSuffix tests whether the string s ends with suffix.
+func HasSuffix(s, suffix string) bool {
+	return strings.HasSuffix(s, suffix)
 }

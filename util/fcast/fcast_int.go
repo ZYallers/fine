@@ -39,6 +39,8 @@ func ToInt(i interface{}) int {
 
 // ToIntE casts an interface to an int type.
 func ToIntE(i interface{}) (int, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return intv, nil
@@ -89,6 +91,8 @@ func ToIntE(i interface{}) (int, error) {
 
 // ToInt8E casts an interface to an int8 type.
 func ToInt8E(i interface{}) (int8, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return int8(intv), nil
@@ -139,6 +143,8 @@ func ToInt8E(i interface{}) (int8, error) {
 
 // ToInt16E casts an interface to an int16 type.
 func ToInt16E(i interface{}) (int16, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return int16(intv), nil
@@ -189,6 +195,8 @@ func ToInt16E(i interface{}) (int16, error) {
 
 // ToInt32E casts an interface to an int32 type.
 func ToInt32E(i interface{}) (int32, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return int32(intv), nil
@@ -239,6 +247,8 @@ func ToInt32E(i interface{}) (int32, error) {
 
 // ToInt64E casts an interface to an int64 type.
 func ToInt64E(i interface{}) (int64, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		return int64(intv), nil

@@ -2,12 +2,9 @@ package fcast
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"strconv"
 )
-
-var errNegativeNotAllowed = errors.New("unable to cast negative value")
 
 // ToUint casts an interface to a uint type.
 func ToUint(i interface{}) uint {
@@ -41,6 +38,8 @@ func ToUint8(i interface{}) uint8 {
 
 // ToUintE casts an interface to a uint type.
 func ToUintE(i interface{}) (uint, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		if intv < 0 {
@@ -115,6 +114,8 @@ func ToUintE(i interface{}) (uint, error) {
 
 // ToUint64E casts an interface to a uint64 type.
 func ToUint64E(i interface{}) (uint64, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		if intv < 0 {
@@ -189,6 +190,8 @@ func ToUint64E(i interface{}) (uint64, error) {
 
 // ToUint32E casts an interface to a uint32 type.
 func ToUint32E(i interface{}) (uint32, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		if intv < 0 {
@@ -263,6 +266,8 @@ func ToUint32E(i interface{}) (uint32, error) {
 
 // ToUint16E casts an interface to a uint16 type.
 func ToUint16E(i interface{}) (uint16, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		if intv < 0 {
@@ -337,6 +342,8 @@ func ToUint16E(i interface{}) (uint16, error) {
 
 // ToUint8E casts an interface to a uint type.
 func ToUint8E(i interface{}) (uint8, error) {
+	i = indirect(i)
+
 	intv, ok := toInt(i)
 	if ok {
 		if intv < 0 {

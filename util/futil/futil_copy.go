@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"sync"
+
+	"github.com/ZYallers/fine/internal/deepcopy"
 )
 
 var bufferPool = sync.Pool{
@@ -14,7 +16,17 @@ var bufferPool = sync.Pool{
 	},
 }
 
-func Copy(r io.Reader) ([]byte, error) {
+// Copy returns a deep copy of v.
+//
+// Copy is unable to copy unexported fields in a struct (lowercase field names).
+// Unexported fields can't be reflected by the Go runtime and therefore
+// they can't perform any data copies.
+func Copy(src interface{}) (dst interface{}) {
+	return deepcopy.Copy(src)
+}
+
+// CopyBytes reads all bytes from r and returns them as a byte slice.
+func CopyBytes(r io.Reader) ([]byte, error) {
 	dst := bufferPool.Get().(*bytes.Buffer)
 	dst.Reset()
 	defer func() {

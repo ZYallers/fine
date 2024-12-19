@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"strconv"
+	"time"
 )
 
 // ToString casts an interface to a string type.
@@ -15,6 +16,8 @@ func ToString(i interface{}) string {
 
 // ToStringE casts an interface to a string type.
 func ToStringE(i interface{}) (string, error) {
+	i = indirectToStringerOrError(i)
+
 	switch s := i.(type) {
 	case string:
 		return s, nil
@@ -67,4 +70,18 @@ func ToStringE(i interface{}) (string, error) {
 	default:
 		return "", fmt.Errorf("unable to cast %#v of type %T to string", i, i)
 	}
+}
+
+// StringToDate attempts to parse a string into a time.Time type using a
+// predefined list of formats.  If no suitable format is found, an error is
+// returned.
+func StringToDate(s string) (time.Time, error) {
+	return parseDateWith(s, time.UTC, timeFormats)
+}
+
+// StringToDateInDefaultLocation casts an empty interface to a time.Time,
+// interpreting inputs without a timezone to be in the given location,
+// or the local timezone if nil.
+func StringToDateInDefaultLocation(s string, location *time.Location) (time.Time, error) {
+	return parseDateWith(s, location, timeFormats)
 }

@@ -165,11 +165,11 @@ func (r *Request) SetBody(body interface{}) *Request {
 	case bytes.Buffer:
 		r.body = b.String()
 	case io.Reader:
-		if cb, err := futil.Copy(b); err == nil {
+		if cb, err := futil.CopyBytes(b); err == nil {
 			r.body = string(cb)
 		}
 	case io.ReadCloser:
-		if cb, err := futil.Copy(b); err == nil {
+		if cb, err := futil.CopyBytes(b); err == nil {
 			r.body = string(cb)
 		}
 	default:
