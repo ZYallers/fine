@@ -3,7 +3,7 @@ package fstr
 import (
 	"strings"
 
-	"github.com/ZYallers/fine/util/futil"
+	"github.com/ZYallers/fine/internal/util/utils"
 )
 
 // ToLower returns a copy of the string s with all Unicode letters mapped to their lower case.
@@ -18,7 +18,7 @@ func ToUpper(s string) string {
 
 // UcFirst returns a copy of the string s with the first letter mapped to its upper case.
 func UcFirst(s string) string {
-	return futil.UcFirst(s)
+	return utils.UcFirst(s)
 }
 
 // LcFirst returns a copy of the string s with the first letter mapped to its lower case.
@@ -39,10 +39,10 @@ func UcWords(str string) string {
 
 // IsLetterLower tests whether the given byte b is in lower case.
 func IsLetterLower(b byte) bool {
-	return futil.IsLetterLower(b)
+	return utils.IsLetterLower(b)
 }
 
 // IsLetterUpper tests whether the given byte b is in upper case.
 func IsLetterUpper(b byte) bool {
-	return futil.IsLetterUpper(b)
+	return utils.IsLetterUpper(b)
 }

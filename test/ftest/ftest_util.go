@@ -5,11 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/ZYallers/fine/debug/fdebug"
 	"github.com/ZYallers/fine/internal/empty"
-	"github.com/ZYallers/fine/text/fstr"
 	"github.com/ZYallers/fine/util/fconv"
 )
 
@@ -242,7 +242,7 @@ func AssertIN(value, expect interface{}) {
 			valueStr  = fconv.String(value)
 			expectStr = fconv.String(expect)
 		)
-		passed = fstr.Contains(expectStr, valueStr)
+		passed = strings.Contains(expectStr, valueStr)
 	default:
 		panic(fmt.Sprintf(`[ASSERT] INVALID EXPECT VALUE TYPE: %v`, expectKind))
 	}
@@ -280,7 +280,7 @@ func AssertNI(value, expect interface{}) {
 			valueStr  = fconv.String(value)
 			expectStr = fconv.String(expect)
 		)
-		passed = !fstr.Contains(expectStr, valueStr)
+		passed = !strings.Contains(expectStr, valueStr)
 	default:
 		panic(fmt.Sprintf(`[ASSERT] INVALID EXPECT VALUE TYPE: %v`, expectKind))
 	}

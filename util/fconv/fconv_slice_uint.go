@@ -6,8 +6,8 @@ import (
 
 	"github.com/ZYallers/fine/internal/json"
 	"github.com/ZYallers/fine/internal/reflection"
+	"github.com/ZYallers/fine/internal/util/utils"
 	"github.com/ZYallers/fine/util/fconv/internal/localinterface"
-	"github.com/ZYallers/fine/util/futil"
 )
 
 // SliceUint is alias of Uints.
@@ -40,7 +40,7 @@ func Uints(any interface{}) []uint {
 		if value == "" {
 			return []uint{}
 		}
-		if futil.IsNumeric(value) {
+		if utils.IsNumeric(value) {
 			return []uint{Uint(value)}
 		}
 
@@ -176,7 +176,7 @@ func Uint32s(any interface{}) []uint32 {
 		if value == "" {
 			return []uint32{}
 		}
-		if futil.IsNumeric(value) {
+		if utils.IsNumeric(value) {
 			return []uint32{Uint32(value)}
 		}
 	case []string:
@@ -310,7 +310,7 @@ func Uint64s(any interface{}) []uint64 {
 		if value == "" {
 			return []uint64{}
 		}
-		if futil.IsNumeric(value) {
+		if utils.IsNumeric(value) {
 			return []uint64{Uint64(value)}
 		}
 

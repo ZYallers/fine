@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ZYallers/fine/internal/util/utils"
 	"github.com/ZYallers/fine/text/fregex"
-	"github.com/ZYallers/fine/util/futil"
 	"github.com/pkg/errors"
 )
 
@@ -167,7 +167,7 @@ func parseDateStr(s string) (year, month, day int) {
 		return
 	}
 	// Checking the year in head or tail.
-	if futil.IsNumeric(array[1]) {
+	if utils.IsNumeric(array[1]) {
 		year, _ = strconv.Atoi(array[0])
 		month, _ = strconv.Atoi(array[1])
 		day, _ = strconv.Atoi(array[2])
@@ -358,7 +358,7 @@ func ParseTimeFromContent(content string, format ...string) *Time {
 // Very note that it supports unit "d" more than function time.ParseDuration.
 func ParseDuration(s string) (duration time.Duration, err error) {
 	var num int64
-	if futil.IsNumeric(s) {
+	if utils.IsNumeric(s) {
 		num, err = strconv.ParseInt(s, 10, 64)
 		if err != nil {
 			err = errors.Wrapf(err, `strconv.ParseInt failed for string "%s"`, s)

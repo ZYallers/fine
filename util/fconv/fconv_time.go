@@ -3,9 +3,9 @@ package fconv
 import (
 	"time"
 
+	"github.com/ZYallers/fine/internal/util/utils"
 	"github.com/ZYallers/fine/os/ftime"
 	"github.com/ZYallers/fine/util/fconv/internal/localinterface"
-	"github.com/ZYallers/fine/util/futil"
 )
 
 // Time converts `any` to time.Time.
@@ -31,7 +31,7 @@ func Duration(any interface{}) time.Duration {
 		return v
 	}
 	s := String(any)
-	if !futil.IsNumeric(s) {
+	if !utils.IsNumeric(s) {
 		d, _ := ftime.ParseDuration(s)
 		return d
 	}
@@ -76,7 +76,7 @@ func FTime(any interface{}, format ...string) *ftime.Time {
 		}
 		return nil
 	}
-	if futil.IsNumeric(s) {
+	if utils.IsNumeric(s) {
 		return ftime.NewFromTimeStamp(Int64(s))
 	} else {
 		t, _ := ftime.StrToTime(s)

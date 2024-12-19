@@ -1,19 +1,45 @@
 package futil
 
 import (
-	"reflect"
-
-	"github.com/ZYallers/fine/internal/empty"
+	"github.com/ZYallers/fine/internal/util/utils"
 )
 
-// IsEmpty checks given `value` empty or not.
-// It returns false if `value` is: integer(0), bool(false), slice/map(len=0), nil;
-// or else returns true.
-func IsEmpty(value interface{}) bool {
-	return empty.IsEmpty(value)
+// IsNil checks whether `value` is nil, especially for interface{} type value.
+func IsNil(value interface{}) bool {
+	return utils.IsNil(value)
 }
 
-// IsTypeOf checks and returns whether the type of `value` and `valueInExpectType` equal.
-func IsTypeOf(value, valueInExpectType interface{}) bool {
-	return reflect.TypeOf(value) == reflect.TypeOf(valueInExpectType)
+// IsEmpty checks whether `value` is empty.
+func IsEmpty(value interface{}) bool {
+	return utils.IsEmpty(value)
+}
+
+// IsInt checks whether `value` is type of int.
+func IsInt(value interface{}) bool {
+	return utils.IsInt(value)
+}
+
+// IsUint checks whether `value` is type of uint.
+func IsUint(value interface{}) bool {
+	return utils.IsUint(value)
+}
+
+// IsFloat checks whether `value` is type of float.
+func IsFloat(value interface{}) bool {
+	return utils.IsFloat(value)
+}
+
+// IsSlice checks whether `value` is type of slice.
+func IsSlice(value interface{}) bool {
+	return utils.IsSlice(value)
+}
+
+// IsMap checks whether `value` is type of map.
+func IsMap(value interface{}) bool {
+	return utils.IsMap(value)
+}
+
+// IsStruct checks whether `value` is type of struct.
+func IsStruct(value interface{}) bool {
+	return utils.IsStruct(value)
 }

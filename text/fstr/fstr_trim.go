@@ -3,13 +3,13 @@ package fstr
 import (
 	"strings"
 
-	"github.com/ZYallers/fine/util/futil"
+	"github.com/ZYallers/fine/internal/util/utils"
 )
 
 // Trim strips whitespace (or other characters) from the beginning and end of a string.
 // The optional parameter `characterMask` specifies the additional stripped characters.
 func Trim(str string, characterMask ...string) string {
-	return futil.Trim(str, characterMask...)
+	return utils.Trim(str, characterMask...)
 }
 
 // TrimStr strips all the given `cut` string from the beginning and end of a string.
@@ -20,7 +20,7 @@ func TrimStr(str string, cut string, count ...int) string {
 
 // TrimLeft strips whitespace (or other characters) from the beginning of a string.
 func TrimLeft(str string, characterMask ...string) string {
-	trimChars := futil.DefaultTrimChars
+	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
 		trimChars += characterMask[0]
 	}
@@ -46,7 +46,7 @@ func TrimLeftStr(str string, cut string, count ...int) string {
 
 // TrimRight strips whitespace (or other characters) from the end of a string.
 func TrimRight(str string, characterMask ...string) string {
-	trimChars := futil.DefaultTrimChars
+	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
 		trimChars += characterMask[0]
 	}
@@ -74,7 +74,7 @@ func TrimRightStr(str string, cut string, count ...int) string {
 
 // TrimAll trims all characters in string `str`.
 func TrimAll(str string, characterMask ...string) string {
-	trimChars := futil.DefaultTrimChars
+	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
 		trimChars += characterMask[0]
 	}

@@ -3,7 +3,7 @@ package fstr
 import (
 	"strings"
 
-	"github.com/ZYallers/fine/util/futil"
+	"github.com/ZYallers/fine/internal/util/utils"
 )
 
 // Replace returns a copy of the string `origin`
@@ -75,7 +75,7 @@ func ReplaceIByArray(origin string, array []string) string {
 // ReplaceByMap returns a copy of `origin`,
 // which is replaced by a map in unordered way, case-sensitively.
 func ReplaceByMap(origin string, replaces map[string]string) string {
-	return futil.ReplaceByMap(origin, replaces)
+	return utils.ReplaceByMap(origin, replaces)
 }
 
 // ReplaceIByMap returns a copy of `origin`,

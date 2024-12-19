@@ -3,7 +3,7 @@ package fstr
 import (
 	"bytes"
 
-	"github.com/ZYallers/fine/util/futil"
+	"github.com/ZYallers/fine/internal/util/utils"
 )
 
 // AddSlashes quotes with slashes `\` for chars: '"\.
@@ -21,7 +21,7 @@ func AddSlashes(str string) string {
 
 // StripSlashes un-quotes a quoted string by AddSlashes.
 func StripSlashes(str string) string {
-	return futil.StripSlashes(str)
+	return utils.StripSlashes(str)
 }
 
 // QuoteMeta returns a version of `str` with a backslash character (`\`).

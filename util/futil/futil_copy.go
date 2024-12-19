@@ -10,11 +10,14 @@ import (
 	"github.com/ZYallers/fine/internal/deepcopy"
 )
 
-var bufferPool = sync.Pool{
-	New: func() interface{} {
-		return bytes.NewBuffer(make([]byte, 4096))
-	},
-}
+var (
+	// bufferPool is a pool of bytes.Buffer objects.
+	bufferPool = sync.Pool{
+		New: func() interface{} {
+			return bytes.NewBuffer(make([]byte, 4096))
+		},
+	}
+)
 
 // Copy returns a deep copy of v.
 //
@@ -47,6 +50,7 @@ func CopyBytes(r io.Reader) ([]byte, error) {
 	return bodyB, nil
 }
 
+// DrainBody reads all bytes from src and returns two bytes reader.
 func DrainBody(b io.ReadCloser) (r1, r2 io.ReadCloser, err error) {
 	if b == nil || b == http.NoBody {
 		// No copying needed. Preserve the magic sentinel meaning of NoBody.

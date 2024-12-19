@@ -4,8 +4,8 @@ import (
 	"reflect"
 
 	"github.com/ZYallers/fine/internal/empty"
+	"github.com/ZYallers/fine/internal/util/utils"
 	"github.com/ZYallers/fine/util/ftag"
-	"github.com/ZYallers/fine/util/futil"
 )
 
 // Tag returns the value associated with key in the tag string. If there is no
@@ -46,7 +46,7 @@ func (f *Field) TagStr() string {
 func (f *Field) TagMap() map[string]string {
 	data := ParseTag(f.TagStr())
 	for k, v := range data {
-		data[k] = futil.StripSlashes(ftag.Parse(v))
+		data[k] = utils.StripSlashes(ftag.Parse(v))
 	}
 	return data
 }

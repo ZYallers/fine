@@ -6,9 +6,9 @@ import (
 
 	"github.com/ZYallers/fine/internal/empty"
 	"github.com/ZYallers/fine/internal/json"
+	"github.com/ZYallers/fine/internal/util/utils"
 	"github.com/ZYallers/fine/util/fconv/internal/localinterface"
 	"github.com/ZYallers/fine/util/ftag"
-	"github.com/ZYallers/fine/util/futil"
 )
 
 type recursiveType string
@@ -302,7 +302,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 			)
 			switch {
 			case mapKeyValue.IsZero():
-				if futil.CanCallIsNil(mapKeyValue) && mapKeyValue.IsNil() {
+				if utils.CanCallIsNil(mapKeyValue) && mapKeyValue.IsNil() {
 					// quick check for nil value.
 					mapValue = nil
 				} else {
@@ -361,7 +361,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 			rvField = reflectValue.Field(i)
 			// Only convert the public attributes.
 			fieldName := rtField.Name
-			if !futil.IsLetterUpper(fieldName[0]) {
+			if !utils.IsLetterUpper(fieldName[0]) {
 				continue
 			}
 			mapKey = ""
