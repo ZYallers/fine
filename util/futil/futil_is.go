@@ -34,6 +34,12 @@ func IsSlice(value interface{}) bool {
 	return utils.IsSlice(value)
 }
 
+// IsArray checks whether given value is array/slice.
+// Note that it uses reflect internally implementing this feature.
+func IsArray(value interface{}) bool {
+	return utils.IsArray(value)
+}
+
 // IsMap checks whether `value` is type of map.
 func IsMap(value interface{}) bool {
 	return utils.IsMap(value)

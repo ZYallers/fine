@@ -19,7 +19,11 @@ func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 	}
 	defer func() {
 		if exception := recover(); exception != nil {
-			err = errors.Errorf("%+v", exception)
+			if v, ok := exception.(error); ok {
+				err = v
+			} else {
+				err = errors.Errorf("%+v", exception)
+			}
 		}
 	}()
 	try(ctx)
