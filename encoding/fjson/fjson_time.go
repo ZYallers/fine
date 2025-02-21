@@ -1,10 +1,10 @@
 package fjson
 
 import (
-	"fmt"
+	"database/sql/driver"
 	"time"
 
-	"database/sql/driver"
+	"github.com/pkg/errors"
 )
 
 const (
@@ -57,5 +57,5 @@ func (t *Time) Scan(v interface{}) error {
 		*t = Time(value)
 		return nil
 	}
-	return fmt.Errorf("can not convert %v to timestamp", v)
+	return errors.Errorf("can not convert %v to timestamp", v)
 }

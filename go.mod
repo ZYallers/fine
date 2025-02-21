@@ -12,6 +12,7 @@ require (
 	github.com/go-playground/validator/v10 v10.20.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/google/uuid v1.5.0
+	github.com/grokify/html-strip-tags-go v0.1.0
 	github.com/json-iterator/go v1.1.12
 	github.com/leeqvip/gophp v1.1.1
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -21,6 +22,7 @@ require (
 	github.com/prometheus/client_golang v1.11.1
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.21.0
+	golang.org/x/text v0.14.0
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/gorm v1.20.8
 )
@@ -64,7 +66,6 @@ require (
 	golang.org/x/crypto v0.19.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/sys v0.17.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect

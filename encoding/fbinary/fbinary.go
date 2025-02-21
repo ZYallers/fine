@@ -1,6 +1,6 @@
-// Package gbinary provides useful API for handling binary/bytes data.
+// Package fbinary provides useful API for handling binary/bytes data.
 //
-// Note that package gbinary encodes the data using LittleEndian in default.
+// Note that package fbinary encodes the data using LittleEndian in default.
 package fbinary
 
 func Encode(values ...interface{}) []byte {

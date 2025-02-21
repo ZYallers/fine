@@ -1,0 +1,170 @@
+package fset_test
+
+import (
+	"strconv"
+	"testing"
+
+	"github.com/ZYallers/fine/container/fset"
+)
+
+var intSet = fset.NewIntSet(true)
+
+var anySet = fset.NewSet(true)
+
+var strSet = fset.NewStrSet(true)
+
+var intSetUnsafe = fset.NewIntSet()
+
+var anySetUnsafe = fset.NewSet()
+
+var strSetUnsafe = fset.NewStrSet()
+
+func Benchmark_IntSet_Add(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			intSet.Add(i)
+			i++
+		}
+	})
+}
+
+func Benchmark_IntSet_Contains(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			intSet.Contains(i)
+			i++
+		}
+	})
+}
+
+func Benchmark_IntSet_Remove(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			intSet.Remove(i)
+			i++
+		}
+	})
+}
+
+func Benchmark_AnySet_Add(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			anySet.Add(i)
+			i++
+		}
+	})
+}
+
+func Benchmark_AnySet_Contains(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			anySet.Contains(i)
+			i++
+		}
+	})
+}
+
+func Benchmark_AnySet_Remove(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			anySet.Remove(i)
+			i++
+		}
+	})
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_StrSet_Add(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			strSet.Add(strconv.Itoa(i))
+			i++
+		}
+	})
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_StrSet_Contains(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			strSet.Contains(strconv.Itoa(i))
+			i++
+		}
+	})
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_StrSet_Remove(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		i := 0
+		for pb.Next() {
+			strSet.Remove(strconv.Itoa(i))
+			i++
+		}
+	})
+}
+
+func Benchmark_Unsafe_IntSet_Add(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		intSetUnsafe.Add(i)
+	}
+}
+
+func Benchmark_Unsafe_IntSet_Contains(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		intSetUnsafe.Contains(i)
+	}
+}
+
+func Benchmark_Unsafe_IntSet_Remove(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		intSetUnsafe.Remove(i)
+	}
+}
+
+func Benchmark_Unsafe_AnySet_Add(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		anySetUnsafe.Add(i)
+	}
+}
+
+func Benchmark_Unsafe_AnySet_Contains(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		anySetUnsafe.Contains(i)
+	}
+}
+
+func Benchmark_Unsafe_AnySet_Remove(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		anySetUnsafe.Remove(i)
+	}
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_Unsafe_StrSet_Add(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		strSetUnsafe.Add(strconv.Itoa(i))
+	}
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_Unsafe_StrSet_Contains(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		strSetUnsafe.Contains(strconv.Itoa(i))
+	}
+}
+
+// Note that there's additional performance cost for string conversion.
+func Benchmark_Unsafe_StrSet_Remove(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		strSetUnsafe.Remove(strconv.Itoa(i))
+	}
+}

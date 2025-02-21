@@ -1,12 +1,27 @@
+// Package f provides commonly used type/function defines and coupled calling for creating commonly-used objects.
+//
+// Note that, using package g might make the compiled binary a little bit bigger, as it imports a few frequently-used
+// packages whatever you use them or not.
 package f
 
-type Meta struct{}
+import (
+	"context"
+
+	"github.com/ZYallers/fine/container/fvar"
+	"github.com/ZYallers/fine/util/fmeta"
+)
 
 type JsonResult struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
 	Data interface{} `json:"data"`
 }
+
+type (
+	Var  = fvar.Var        // Var is a universal variable interface, like generics.
+	Ctx  = context.Context // Ctx is alias of frequently-used type context.Context.
+	Meta = fmeta.Meta      // Meta is alias of frequently-used type fmeta.Meta.
+)
 
 type (
 	Map        = map[string]interface{}      // Map is alias of frequently-used map type map[string]interface{}.

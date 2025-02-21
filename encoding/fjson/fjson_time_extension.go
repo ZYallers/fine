@@ -105,27 +105,3 @@ func (extension *CustomTimeExtension) UpdateStructDescriptor(structDescriptor *j
 		}}
 	}
 }
-
-type funcDecoder struct {
-	fun jsoniter.DecoderFunc
-}
-
-func (decoder *funcDecoder) Decode(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
-	decoder.fun(ptr, iter)
-}
-
-type funcEncoder struct {
-	fun         jsoniter.EncoderFunc
-	isEmptyFunc func(ptr unsafe.Pointer) bool
-}
-
-func (encoder *funcEncoder) Encode(ptr unsafe.Pointer, stream *jsoniter.Stream) {
-	encoder.fun(ptr, stream)
-}
-
-func (encoder *funcEncoder) IsEmpty(ptr unsafe.Pointer) bool {
-	if encoder.isEmptyFunc == nil {
-		return false
-	}
-	return encoder.isEmptyFunc(ptr)
-}

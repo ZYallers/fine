@@ -356,7 +356,7 @@ func AssertNil(value interface{}) {
 		return
 	}
 	if err, ok := value.(error); ok {
-		panic(fmt.Sprintf(`%+v`, err))
+		panic(fmt.Sprintf("%+v", err))
 	}
 	Assert(value, nil)
 }

@@ -3,8 +3,12 @@ package fmap
 import (
 	"reflect"
 
+	"github.com/ZYallers/fine/container/fvar"
+	"github.com/ZYallers/fine/internal/deepcopy"
 	"github.com/ZYallers/fine/internal/empty"
+	"github.com/ZYallers/fine/internal/json"
 	"github.com/ZYallers/fine/internal/rwmutex"
+	"github.com/ZYallers/fine/util/fconv"
 )
 
 // StrAnyMap implements map[string]interface{} with RWMutex that has switch.
@@ -36,9 +40,7 @@ func NewStrAnyMapFrom(data map[string]interface{}, safe ...bool) *StrAnyMap {
 // Iterator iterates the hash map readonly with custom callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
 func (m *StrAnyMap) Iterator(f func(k string, v interface{}) bool) {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	for k, v := range m.data {
+	for k, v := range m.Map() {
 		if !f(k, v) {
 			break
 		}
@@ -248,6 +250,30 @@ func (m *StrAnyMap) GetOrSetFuncLock(key string, f func() interface{}) interface
 	}
 }
 
+// GetVar returns a Var with the value by given `key`.
+// The returned Var is un-concurrent safe.
+func (m *StrAnyMap) GetVar(key string) *fvar.Var {
+	return fvar.New(m.Get(key))
+}
+
+// GetVarOrSet returns a Var with result from GetVarOrSet.
+// The returned Var is un-concurrent safe.
+func (m *StrAnyMap) GetVarOrSet(key string, value interface{}) *fvar.Var {
+	return fvar.New(m.GetOrSet(key, value))
+}
+
+// GetVarOrSetFunc returns a Var with result from GetOrSetFunc.
+// The returned Var is un-concurrent safe.
+func (m *StrAnyMap) GetVarOrSetFunc(key string, f func() interface{}) *fvar.Var {
+	return fvar.New(m.GetOrSetFunc(key, f))
+}
+
+// GetVarOrSetFuncLock returns a Var with result from GetOrSetFuncLock.
+// The returned Var is un-concurrent safe.
+func (m *StrAnyMap) GetVarOrSetFuncLock(key string, f func() interface{}) *fvar.Var {
+	return fvar.New(m.GetOrSetFuncLock(key, f))
+}
+
 // SetIfNotExist sets `value` to the map if the `key` does not exist, and then returns true.
 // It returns false if `key` exists, and `value` would be ignored.
 func (m *StrAnyMap) SetIfNotExist(key string, value interface{}) bool {
@@ -389,6 +415,17 @@ func (m *StrAnyMap) RLockFunc(f func(m map[string]interface{})) {
 	f(m.data)
 }
 
+// Flip exchanges key-value of the map to value-key.
+func (m *StrAnyMap) Flip() {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	n := make(map[string]interface{}, len(m.data))
+	for k, v := range m.data {
+		n[fconv.String(v)] = k
+	}
+	m.data = n
+}
+
 // Merge merges two hash maps.
 // The `other` map will be merged into the map `m`.
 func (m *StrAnyMap) Merge(other *StrAnyMap) {
@@ -405,6 +442,57 @@ func (m *StrAnyMap) Merge(other *StrAnyMap) {
 	for k, v := range other.data {
 		m.data[k] = v
 	}
+}
+
+// String returns the map as a string.
+func (m *StrAnyMap) String() string {
+	if m == nil {
+		return ""
+	}
+	b, _ := m.MarshalJSON()
+	return string(b)
+}
+
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+func (m StrAnyMap) MarshalJSON() ([]byte, error) {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return json.Marshal(m.data)
+}
+
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+func (m *StrAnyMap) UnmarshalJSON(b []byte) error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	if m.data == nil {
+		m.data = make(map[string]interface{})
+	}
+	if err := json.UnmarshalUseNumber(b, &m.data); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalValue is an interface implement which sets any type of value for map.
+func (m *StrAnyMap) UnmarshalValue(value interface{}) (err error) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.data = fconv.Map(value)
+	return
+}
+
+// DeepCopy implements interface for deep copy of current type.
+func (m *StrAnyMap) DeepCopy() interface{} {
+	if m == nil {
+		return nil
+	}
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	data := make(map[string]interface{}, len(m.data))
+	for k, v := range m.data {
+		data[k] = deepcopy.Copy(v)
+	}
+	return NewStrAnyMapFrom(data, m.mu.IsSafe())
 }
 
 // IsSubOf checks whether the current map is a sub-map of `other`.
