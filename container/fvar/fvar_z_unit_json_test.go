@@ -12,7 +12,7 @@ import (
 func TestVar_Json(t *testing.T) {
 	// Marshal
 	ftest.C(t, func(t *ftest.T) {
-		s := "i love gf"
+		s := "i love fine"
 		v := fvar.New(s)
 		b1, err1 := json.Marshal(v)
 		b2, err2 := json.Marshal(s)
@@ -31,7 +31,7 @@ func TestVar_Json(t *testing.T) {
 
 	// Unmarshal
 	ftest.C(t, func(t *ftest.T) {
-		s := "i love gf"
+		s := "i love fine"
 		v := fvar.New(nil)
 		b, err := json.Marshal(s)
 		t.AssertNil(err)
@@ -43,7 +43,7 @@ func TestVar_Json(t *testing.T) {
 
 	ftest.C(t, func(t *ftest.T) {
 		var v fvar.Var
-		s := "i love gf"
+		s := "i love fine"
 		b, err := json.Marshal(s)
 		t.AssertNil(err)
 

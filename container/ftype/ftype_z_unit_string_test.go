@@ -31,7 +31,7 @@ func Test_String(t *testing.T) {
 
 func Test_String_JSON(t *testing.T) {
 	ftest.C(t, func(t *ftest.T) {
-		s := "i love gf"
+		s := "i love fine"
 		i1 := ftype.NewString(s)
 		b1, err1 := json.Marshal(i1)
 		b2, err2 := json.Marshal(i1.Val())

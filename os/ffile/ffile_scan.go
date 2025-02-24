@@ -1,17 +1,61 @@
 package ffile
 
 import (
-	"fmt"
 	"path/filepath"
 	"sort"
 
 	"github.com/ZYallers/fine/text/fstr"
+	"github.com/pkg/errors"
 )
 
 const (
 	// Max recursive depth for directory scanning.
 	maxScanDepth = 100000
 )
+
+// ScanDir returns all sub-files with absolute paths of given `path`,
+// It scans directory recursively if given parameter `recursive` is true.
+//
+// The pattern parameter `pattern` supports multiple file name patterns,
+// using the ',' symbol to separate multiple patterns.
+func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
+	isRecursive := false
+	if len(recursive) > 0 {
+		isRecursive = recursive[0]
+	}
+	list, err := doScanDir(0, path, pattern, isRecursive, nil)
+	if err != nil {
+		return nil, err
+	}
+	if len(list) > 0 {
+		sort.Strings(list)
+	}
+	return list, nil
+}
+
+// ScanDirFunc returns all sub-files with absolute paths of given `path`,
+// It scans directory recursively if given parameter `recursive` is true.
+//
+// The pattern parameter `pattern` supports multiple file name patterns, using the ','
+// symbol to separate multiple patterns.
+//
+// The parameter `recursive` specifies whether scanning the `path` recursively, which
+// means it scans its sub-files and appends the files path to result array if the sub-file
+// is also a folder. It is false in default.
+//
+// The parameter `handler` specifies the callback function handling each sub-file path of
+// the `path` and its sub-folders. It ignores the sub-file path if `handler` returns an empty
+// string, or else it appends the sub-file path to result slice.
+func ScanDirFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
+	list, err := doScanDir(0, path, pattern, recursive, handler)
+	if err != nil {
+		return nil, err
+	}
+	if len(list) > 0 {
+		sort.Strings(list)
+	}
+	return list, nil
+}
 
 // ScanDirFile returns all sub-files with absolute paths of given `path`,
 // It scans directory recursively if given parameter `recursive` is true.
@@ -40,17 +84,29 @@ func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, erro
 	return list, nil
 }
 
-// ScanDir returns all sub-files with absolute paths of given `path`,
+// ScanDirFileFunc returns all sub-files with absolute paths of given `path`,
 // It scans directory recursively if given parameter `recursive` is true.
 //
-// The pattern parameter `pattern` supports multiple file name patterns,
-// using the ',' symbol to separate multiple patterns.
-func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
-	isRecursive := false
-	if len(recursive) > 0 {
-		isRecursive = recursive[0]
-	}
-	list, err := doScanDir(0, path, pattern, isRecursive, nil)
+// The pattern parameter `pattern` supports multiple file name patterns, using the ','
+// symbol to separate multiple patterns.
+//
+// The parameter `recursive` specifies whether scanning the `path` recursively, which
+// means it scans its sub-files and appends the file paths to result array if the sub-file
+// is also a folder. It is false in default.
+//
+// The parameter `handler` specifies the callback function handling each sub-file path of
+// the `path` and its sub-folders. It ignores the sub-file path if `handler` returns an empty
+// string, or else it appends the sub-file path to result slice.
+//
+// Note that the parameter `path` for `handler` is not a directory but a file.
+// It returns only files, exclusive of directories.
+func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
+	list, err := doScanDir(0, path, pattern, recursive, func(path string) string {
+		if IsDir(path) {
+			return ""
+		}
+		return handler(path)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +131,7 @@ func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 // string, or else it appends the sub-file path to result slice.
 func doScanDir(depth int, path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	if depth >= maxScanDepth {
-		return nil, fmt.Errorf("directory scanning exceeds max recursive depth: %d", maxScanDepth)
+		return nil, errors.Errorf("directory scanning exceeds max recursive depth: %d", maxScanDepth)
 	}
 	var (
 		list      []string
@@ -87,7 +143,7 @@ func doScanDir(depth int, path string, pattern string, recursive bool, handler f
 	defer file.Close()
 	names, err := file.Readdirnames(-1)
 	if err != nil {
-		err = fmt.Errorf(`read directory files failed from path "%s": %s`, path, err)
+		err = errors.Wrapf(err, `read directory files failed from path "%s"`, path)
 		return nil, err
 	}
 	var (

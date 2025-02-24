@@ -35,7 +35,7 @@ func Test_Any(t *testing.T) {
 
 func Test_Any_JSON(t *testing.T) {
 	ftest.C(t, func(t *ftest.T) {
-		s := "i love gf"
+		s := "i love fine"
 		i := ftype.New(s)
 		b1, err1 := json.Marshal(i)
 		b2, err2 := json.Marshal(i.Val())

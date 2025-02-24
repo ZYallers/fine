@@ -34,7 +34,7 @@ func Test_Bytes(t *testing.T) {
 
 func Test_Bytes_JSON(t *testing.T) {
 	ftest.C(t, func(t *ftest.T) {
-		b := []byte("i love gf")
+		b := []byte("i love fine")
 		i := ftype.NewBytes(b)
 		b1, err1 := json.Marshal(i)
 		b2, err2 := json.Marshal(i.Val())

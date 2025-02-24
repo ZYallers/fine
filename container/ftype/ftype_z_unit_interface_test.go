@@ -11,8 +11,8 @@ import (
 
 func Test_Interface(t *testing.T) {
 	ftest.C(t, func(t *ftest.T) {
-		t1 := Temp{Name: "gf", Age: 18}
-		t2 := Temp{Name: "gf", Age: 19}
+		t1 := Temp{Name: "fine", Age: 18}
+		t2 := Temp{Name: "fine", Age: 19}
 		i := ftype.New(t1)
 		iClone := i.Clone()
 		t.AssertEQ(iClone.Set(t2), t1)
@@ -22,10 +22,10 @@ func Test_Interface(t *testing.T) {
 		i1 := ftype.New()
 		t.AssertEQ(i1.Val(), nil)
 
-		i2 := ftype.New("gf")
-		t.AssertEQ(i2.String(), "gf")
+		i2 := ftype.New("fine")
+		t.AssertEQ(i2.String(), "fine")
 		copyVal := i2.DeepCopy()
-		i2.Set("goframe")
+		i2.Set("gofine")
 		t.AssertNE(copyVal, iClone.Val())
 		i2 = nil
 		copyVal = i2.DeepCopy()
@@ -35,7 +35,7 @@ func Test_Interface(t *testing.T) {
 
 func Test_Interface_JSON(t *testing.T) {
 	ftest.C(t, func(t *ftest.T) {
-		s := "i love gf"
+		s := "i love fine"
 		i := ftype.New(s)
 		b1, err1 := json.Marshal(i)
 		b2, err2 := json.Marshal(i.Val())
