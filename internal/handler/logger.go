@@ -45,7 +45,8 @@ func logSend(ctx *gin.Context, runtime time.Duration, logMaxSec, sendMaxSec int)
 		)
 	}
 	if sendMaxSec > 0 && runtime.Seconds() >= float64(sendMaxSec) {
-		msg := fmt.Sprintf("%s take %s to response, exceeding the maximum %s limit", ctx.Request.URL.Path, runtime, sendMaxSec)
+		msg := fmt.Sprintf("%s take %s to response, exceeding the maximum %d limit",
+			ctx.Request.URL.Path, runtime, sendMaxSec)
 		fmsg.Sender().Context(ctx, msg, ctx.GetString(fctx.RequestRawKey), "", false)
 	}
 }
