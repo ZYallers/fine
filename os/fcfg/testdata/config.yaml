@@ -1,0 +1,87 @@
+# app config
+app:
+  debug: true
+  mode: "develop"
+  name: "fine-example"
+  server:
+    addr: "0.0.0.0:9999"
+    readTimeout: 10 # second
+    writeTimeout: 15 # second
+    shutdownTimeout: 15 # second
+  version:
+    latest: "1.0.0"
+    key: "app_version"
+  sign:
+    key: "sign"
+    timeKey: "utime"
+    secret: "env{sign_secret}"
+    expiration: 60 # second
+  session:
+    key: "sess_token"
+    keyPrefix: "ci_session:"
+    expiration: 15552000 # second
+  logger:
+    logTimeout: 5 # second
+    sendTimeout: 10 # second
+  router:
+    dumpRoutes: true
+
+# message config
+message:
+  dingtalk:
+    enable: false
+    token:
+      simple: "env{message_simple_token}"
+      context: "env{message_context_token}"
+
+# logger config
+logger:
+  path: "log"
+  suffix: ".log"
+  maxSize: 100 # megabytes
+  stdoutEnable: true
+#  withCaller: true # to annotate each message with the filename, line number, and function name of zap's caller.
+#  withStacktrace: "warn" # record a stack trace for all messages at or above a given level.
+
+# tracing config
+tracing:
+  exclude_routes:
+    - "/api/v1/test"
+    - "/api/v1/test2"
+
+# database config
+database:
+  mysql:
+    mall:
+      port: "3306"
+      host: "env{mysql_mall_host}"
+      user: "env{mysql_mall_username}"
+      password: "env{mysql_mall_password}"
+      database: "env{mysql_mall_database}"
+      charset: "utf8mb4"
+      loc: "Local"
+      parseTime: "true"
+      maxAllowedPacket: "0"
+      timeout: "15s"
+      maxIdleConns: 5
+      maxOpenConns: 50
+      connMaxIdleTime: 300 # second
+      connMaxLifetime: 600 # second
+      logger:
+        level: "info"
+        slowThreshold: 200 # millisecond
+        colorful: false
+        sender:
+          enable: false
+          token: "env{logger_sender_token}"
+  redis:
+    cache:
+      host: "env{redis_host}"
+      port: "env{redis_port}"
+      password: "env{redis_password}"
+      db: 0
+    session:
+      host: "env{redis_session_host}"
+      port: "env{redis_session_port}"
+      password: "env{redis_session_password}"
+      db: 0

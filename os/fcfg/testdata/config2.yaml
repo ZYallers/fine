@@ -1,0 +1,5 @@
+# app config
+app:
+  version:
+    latest: "2.0.0"
+    other: "other"

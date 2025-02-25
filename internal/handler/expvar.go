@@ -14,21 +14,20 @@ import (
 
 var (
 	lastPause uint32
-	start     = time.Now() // 开始时间
+	start     = time.Now()
 )
 
 func init() {
-	// 这些都是我自定义的变量，发布到 expvar 中，每次请求接口，expvar会自动去获取这些变量，并返回给我
 	expvar.Publish("A:运行时间", expvar.Func(caleRuntime))
 	expvar.Publish("B:Go语言版本", expvar.Func(goVersion))
 	expvar.Publish("D:系统CPU数量", expvar.Func(getNumCPUs))
 	expvar.Publish("C:Go运行系统", expvar.Func(getGoOS))
 	expvar.Publish("F:CGO调用次数", expvar.Func(getNumCgoCall))
-	expvar.Publish("E:协程数量", expvar.Func(getNumGoroutins))
+	expvar.Publish("E:协程数量", expvar.Func(getNumGoroutine))
 	expvar.Publish("G:上次GC的暂停时间", expvar.Func(getLastGCPauseTime))
 }
 
-// ExpVar 返回当前运行信息
+// ExpVar return the current runtime information
 func ExpVar() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		ctx.Writer.Header().Set("Content-Type", "application/json")
@@ -74,9 +73,9 @@ func ExpVar() gin.HandlerFunc {
 						obj["PauseTotalNs:垃圾回收或者其他信息收集导致服务暂停的次数"] = ms.PauseTotalNs
 						obj["NumForcedGC:服务调用runtime.GC()强制使用垃圾回收的次数"] = ms.NumForcedGC
 						obj["GCCPUFraction:垃圾回收占用服务CPU工作的时间总和(如果有100个协程,垃圾回收时间为1s,那么就占用了100s)"] = ms.GCCPUFraction
-						// obj["PauseNs:记录最近垃圾回收系统中断的时间"] = ms.PauseNs
-						// obj["PauseEnd:记录最近垃圾回收系统中断的时间开始点"] = ms.PauseEnd
-						// obj["BySize:内存分配器使用情况"] = ms.BySize
+						obj["PauseNs:记录最近垃圾回收系统中断的时间"] = ms.PauseNs
+						obj["PauseEnd:记录最近垃圾回收系统中断的时间开始点"] = ms.PauseEnd
+						obj["BySize:内存分配器使用情况"] = ms.BySize
 						bt, _ := json.Marshal(obj)
 						_, _ = fmt.Fprintf(ctx.Writer, "%q: %s", "I:内存状态", string(bt))
 					} else {
@@ -96,37 +95,37 @@ func ExpVar() gin.HandlerFunc {
 	}
 }
 
-// 计算运行时间
+// caleRuntime returns running time
 func caleRuntime() interface{} {
 	return time.Since(start).String()
 }
 
-// 当前 Golang 版本
+// goVersion returns the Go tree's version string.
 func goVersion() interface{} {
 	return runtime.Version()
 }
 
-// 获取 CPU 核心数量
+// getNumCPUs returns the number of logical CPUs usable by the current process.
 func getNumCPUs() interface{} {
 	return runtime.NumCPU()
 }
 
-// 当前系统类型
+// getGoOS returns the running program's operating system
 func getGoOS() interface{} {
 	return runtime.GOOS
 }
 
-// 当前 goroutine 数量
-func getNumGoroutins() interface{} {
+// getNumGoroutine returns the number of goroutines that currently exist.
+func getNumGoroutine() interface{} {
 	return runtime.NumGoroutine()
 }
 
-// CGo 调用次数
+// getNumCgoCall returns the number of cgo calls made by the current process.
 func getNumCgoCall() interface{} {
 	return runtime.NumCgoCall()
 }
 
-// 获取上次 GC 的暂停时间
+// getLastGCPauseTime returns the pause time of the last GC
 func getLastGCPauseTime() interface{} {
 	var gcPause uint64
 	ms := new(runtime.MemStats)
@@ -141,9 +140,9 @@ func getLastGCPauseTime() interface{} {
 	return gcPause
 }
 
+// sizeFormat returns the size of the file in a human-readable format.
 func sizeFormat(b uint64) string {
 	i := 0
-	// b大于是1024字节时，开始循环，当循环到第4次时跳出
 	flat, _ := strconv.ParseFloat(strconv.FormatInt(int64(b), 10), 64)
 	for {
 		if flat >= 1024 {
@@ -154,7 +153,6 @@ func sizeFormat(b uint64) string {
 			break
 		}
 	}
-	// 将B,KB,MB,GB,TB定义成一维数组
 	units := []string{"B", "KB", "MB", "GB", "TB"}
 	return fmt.Sprintf("%.2f%s", flat, units[i])
 }

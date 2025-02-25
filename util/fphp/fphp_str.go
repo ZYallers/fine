@@ -1,13 +1,13 @@
 package fphp
 
-import "strings"
+import (
+	"strings"
+)
 
-// Strlen strlen()
 func Strlen(str string) int {
 	return len(str)
 }
 
-// Substr substr()
 func Substr(str string, start uint, length int) string {
 	if start < 0 || length < -1 {
 		return str
@@ -25,7 +25,6 @@ func Substr(str string, start uint, length int) string {
 	return str[start:end]
 }
 
-// Strpos strpos()
 func Strpos(haystack, needle string, offset int) int {
 	length := len(haystack)
 	if length == 0 || offset > length || -offset > length {

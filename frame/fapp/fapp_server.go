@@ -39,17 +39,21 @@ func (app *App) startServer() {
 	}()
 
 	quitChan := make(chan os.Signal, 1)
-	// SIGTERM 结束程序(kill pid)(可以被捕获、阻塞或忽略)
-	// SIGHUP 终端控制进程结束(终端连接断开)
-	// SIGINT 用户发送INTR字符(Ctrl+C)触发
-	// SIGQUIT 用户发送QUIT字符(Ctrl+/)触发
+
+	// SIGTERM terminates program (kill pid) (can be captured, blocked, or ignored)
+	// SIGHUP terminal control process ends (terminal connection disconnected)
+	// SIGINT user sends INTR character (Ctrl+C) trigger
+	// SIGQUIT user sends QUIT character (Ctrl+/) trigger
 	signal.Notify(quitChan, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT)
 	sign := <-quitChan
 
-	// 保证quitChan将不再接收信号
+	// Ensure that quitChan will no longer receive signals
 	signal.Stop(quitChan)
 
-	// 控制是否启用HTTP保持活动，默认情况下始终启用保持活动，只有资源受限的环境或服务器在关闭过程中才应禁用它们
+	// Control whether to enable HTTP keep alive.
+	// Keep alive is always enabled by default,
+	// and should only be disabled in resource constrained environments
+	// or servers during shutdown
 	app.Server.HttpServer.SetKeepAlivesEnabled(false)
 
 	shutdownTimeout := time.Duration(app.Server.ShutdownTimeout)

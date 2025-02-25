@@ -1,6 +1,8 @@
 package tracing
 
-import "github.com/VictoriaMetrics/fastcache"
+import (
+	"github.com/VictoriaMetrics/fastcache"
+)
 
 type fastCache struct {
 	cache *fastcache.Cache

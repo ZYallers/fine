@@ -10,17 +10,19 @@ import (
 	"github.com/spf13/viper"
 )
 
+// ReadConfig reads configuration from a file.
+// If merge is true, it will merge the configuration with the existing configuration.
 func ReadConfig(file string, merge bool) error {
 	if !ffile.Exists(file) {
 		return fmt.Errorf("config file \"%s\" not exists", file)
 	}
 	viper.SetConfigFile(file)
 	if merge {
-		if err := viper.ReadInConfig(); err != nil {
+		if err := viper.MergeInConfig(); err != nil {
 			return err
 		}
 	} else {
-		if err := viper.MergeInConfig(); err != nil {
+		if err := viper.ReadInConfig(); err != nil {
 			return err
 		}
 	}
@@ -49,15 +51,15 @@ func AllKeys() []string                   { return viper.AllKeys() }
 func AllSettings() map[string]interface{} { return viper.AllSettings() }
 
 func getEnvStrValue(value string) string {
-	// 检查值是否符合 "env{" + key + "}" 的格式
+	// Check if the value conforms to the format of "env {"+key+"}"
 	if !strings.HasPrefix(value, "env{") || !strings.HasSuffix(value, "}") {
 		return value
 	}
-	// 提取环境变量的键
+	// Extracting keys for environmental variables
 	envKey := strings.TrimSuffix(strings.TrimPrefix(value, "env{"), "}")
-	// 从环境变量中获取值
+	// Retrieve values from environment variables
 	realValue := os.Getenv(envKey)
-	// 如果环境变量存在，返回其值，否则返回原始字符串
+	// If the environment variable exists, return its value; otherwise, return the original string
 	if realValue != "" {
 		return realValue
 	}
