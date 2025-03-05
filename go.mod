@@ -6,6 +6,7 @@ require (
 	github.com/VictoriaMetrics/fastcache v1.12.2
 	github.com/arl/statsviz v0.2.2
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
+	github.com/clbanning/mxj/v2 v2.7.0
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/locales v0.14.1
 	github.com/go-playground/universal-translator v0.18.1
@@ -23,6 +24,7 @@ require (
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.21.0
 	golang.org/x/text v0.14.0
+	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/gorm v1.20.8
 )
@@ -71,5 +73,4 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
