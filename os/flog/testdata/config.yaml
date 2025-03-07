@@ -1,0 +1,6 @@
+# logger config
+logger:
+  path: "./testdata/log"
+  suffix: ".log"
+  maxSize: 100
+  stdoutEnable: true
